@@ -1,0 +1,48 @@
+version: '3.1'
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  nginx-server:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+    networks:
+      - "app-tier"
+    depends_on:
+      - app
+      - app2
+      - app3
+
+  app:
+    build: ./
+    container_name: fastapi-app
+    tty: true
+    stdin_open: true
+    ports:
+      - "8001:80"
+    networks:
+      - "app-tier"
+
+  app2:
+    build: ./
+    container_name: fastapi-app2
+    tty: true
+    stdin_open: true
+    ports:
+      - "8002:80"
+    networks:
+      - "app-tier"
+
+  app3:
+    build: ./
+    container_name: fastapi-app3
+    tty: true
+    stdin_open: true
+    ports:
+      - "8003:80"
+    networks:
+      - "app-tier"
