@@ -9,6 +9,7 @@ print(f'now t: {threading.currentThread().getName()}')
 
 @app.get("/")
 def root():
+    # test
     print(f'start root ({threading.currentThread().getName()})')
     return {"message": "Hello World"}
 
